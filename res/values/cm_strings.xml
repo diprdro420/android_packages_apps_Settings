@@ -1447,4 +1447,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="theme_auto_mode_lightsensor">On light condition change</string>
     <string name="theme_auto_mode_twilight">On daytime</string>
     <string name="theme_auto_switch_mode_error">Automatic light condition change mode is enabled. Manual switching is not possible.</string>
+
+    <!-- Sound settings screen, setting check box label -->
+    <string name="camera_sounds_title">Camera shutter sound</string>
+    <string name="camera_sounds_summary">WARNING: Disabling the camera shutter sound is illegal in some areas!</string>
 </resources>
