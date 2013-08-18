@@ -131,6 +131,12 @@
             android:key="advanced_display_prefs"
             android:title="@string/advanced_settings">
 
+            <PreferenceScreen
+                android:key="app_sidebar"
+                android:fragment="com.android.settings.cyanogenmod.AppSidebar"
+                android:title="@string/app_sidebar_title"
+                android:summary="@string/app_sidebar_summary" />
+
             <CheckBoxPreference
                 android:key="adaptive_backlight"
                 android:title="@string/adaptive_backlight_title"
