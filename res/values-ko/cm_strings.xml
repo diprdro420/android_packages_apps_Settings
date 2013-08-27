@@ -1034,4 +1034,7 @@
 
   <!-- Lockscreen battery ring -->
   <string name="battery_around_lockscreen_ring">잠금 링 주위에 배터리 표시</string>
+
+  <!-- ListView animation -->
+  <string name="listview_category">리스트뷰 애니메이션</string>
 </resources>
