@@ -945,4 +945,7 @@
   <string name="summary_animation_no_override">앱이 화면 전환 효과를 무시하는것을 방지합니다.</string>
   <string name="animation_duration_default">기본 값</string>
 
+  <!-- ListView animation -->
+  <string name="listview_category">리스트뷰 애니메이션</string>
+
 </resources>
