@@ -24,6 +24,11 @@
         android:dialogTitle="@string/io_sched_title"
         android:title="@string/io_sched_title" />
 
+    <PreferenceScreen
+        android:fragment="com.android.settings.slim.BatteryIconStyle"
+        android:key="battery_style_pref"
+        android:title="@string/battery_icon_title" />
+
     <CheckBoxPreference
         android:key="pref_io_sched_set_on_boot"
         android:title="@string/performance_set_on_boot"

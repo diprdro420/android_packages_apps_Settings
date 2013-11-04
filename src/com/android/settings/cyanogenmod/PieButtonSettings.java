@@ -35,6 +35,8 @@ public class PieButtonSettings extends SettingsPreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pie_button_fragment);
+
+        addPreferencesFromResource(R.xml.slim_interface_settings);
     }
 
     @Override
@@ -49,5 +51,12 @@ public class PieButtonSettings extends SettingsPreferenceFragment {
             list.setPadding(0, paddingTop, 0, paddingBottom);
         }
         return view;
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        return false;
+    }
+    public void onResume() {
+        super.onResume();
     }
 }
