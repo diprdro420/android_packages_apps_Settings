@@ -1657,4 +1657,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Custom Recent Settings -->
     <string name="custom_recent_title">Switch recents style</string>
     <string name="custom_recent_summary">Tick for slim recents or untick for stock recents.</string>
+
+    <!--Lockscreen See Through-->
+    <string name="see_through_title">See through</string>
+    <string name="see_through_summary">Shows the content behind your lockscreen, your data may be visible to those around you</string>
 </resources>
