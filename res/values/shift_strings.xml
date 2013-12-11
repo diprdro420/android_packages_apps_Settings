@@ -448,6 +448,9 @@
 	<!-- Screenshot Tile -->
     <string name="title_tile_screenshot">Screenshot</string>
     
+    <!-- QS Power menu -->
+    <string name="title_tile_power">Power Menu</string>
+    
     <!--Blacklist-->
     <string name="blacklist_button_title">Blacklist</string>
     <string name="floating_blacklist_label">Blacklist from Floating Mode</string>
