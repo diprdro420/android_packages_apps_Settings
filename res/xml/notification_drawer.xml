@@ -56,6 +56,12 @@
             android:fragment="com.android.settings.quicksettings.QuickSettings"
             android:title="@string/quick_settings_panel_title" />
 
+    <CheckBoxPreference
+        android:key="full_swipe_to_switch_detection"
+        android:title="@string/title_full_screen_swipe"
+        android:summary="@string/summary_full_screen_swipe"
+        android:defaultValue="false" />
+
     <PreferenceCategory
         android:title="@string/category_quick_access" >
 
