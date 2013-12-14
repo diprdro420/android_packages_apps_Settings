@@ -193,5 +193,9 @@
     <string name="heads_up_bg_color_title">Background color</string>
     <string name="heads_up_text_color_title">Text color</string>
     <string name="heads_up_reset_message">Reset all entries to default?</string>
+    
+    <!-- Chamber of Secrets -->
+    <string name="chamber_title">CyanideMod Dungeon</string>
+    <string name="chamber_toast">The CyanideMod Chamber has opened</string>
 
 </resources>
