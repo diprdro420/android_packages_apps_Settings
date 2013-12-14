@@ -91,6 +91,13 @@
         android:fragment="com.android.settings.HomeSettings"
         android:title="@string/home_settings" />
 
+    <!-- Dark UI -->
+    <header
+        android:id="@+id/theme_settings"
+        android:fragment="com.android.settings.slim.themes.ThemeSettings"
+        android:icon="@drawable/ic_settings_theme"
+        android:title="@string/theme_settings_title" />
+
     <!-- Lock screen -->
     <header
         settings:includeXmlForSearch="@xml/lockscreen_interface_settings"
@@ -102,7 +109,7 @@
     <!-- Themes -->
     <header
         settings:includeXmlForSearch="@xml/theme_settings"
-        android:id="@+id/theme_settings"
+        android:id="@+id/themes_cyanogen"
         android:title="@string/themes_settings_title"
         android:breadCrumbTitle="@string/themes_settings_title"
         android:fragment="com.android.settings.ThemeSettings"

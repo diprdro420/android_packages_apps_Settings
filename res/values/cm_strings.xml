@@ -1293,5 +1293,13 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="block_notifications_summary">Manage ignored notifications and filters</string>
     <!-- Keep the referenced menu string consistent with status_bar_notification_spam_item_title in frameworks/base/packages/SystemUI -->
     <string name="no_filters_title">No filters set. To filter a notification, long press it and choose \'Ignore messages like this\'.</string>
+    
+    <!-- Themes -->
+    <string name="theme_settings_title">Dark Shift</string>
+    <string name="theme_auto_mode_title">Switch theme</string>
+    <string name="theme_auto_mode_off">Manual</string>
+    <string name="theme_auto_mode_lightsensor">On light condition change</string>
+    <string name="theme_auto_mode_twilight">On daytime</string>
+    <string name="theme_auto_switch_mode_error">Automatic light condition change mode is enabled. Manual switching is not possible.</string>
 
 </resources>
