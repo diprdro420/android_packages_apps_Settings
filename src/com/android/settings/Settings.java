@@ -121,6 +121,7 @@ import com.android.settings.search.SettingsAutoCompleteTextView;
 import com.android.settings.search.SearchPopulator;
 import com.android.settings.search.SettingsSearchFilterAdapter;
 import com.android.settings.search.SettingsSearchFilterAdapter.SearchInfo;
+import com.android.settings.slim.themes.ThemeEnabler;
 import com.android.settings.tts.TextToSpeechSettings;
 import com.android.settings.users.UserSettings;
 import com.android.settings.voicewakeup.VoiceWakeupEnabler;
@@ -177,6 +178,8 @@ public class Settings extends PreferenceActivity
     private Header mCurrentHeader;
     private Header mParentHeader;
     private boolean mInLocalHeaderSwitch;
+
+    private int mCurrentState = 0;
 
     // Show only these settings for restricted users
     private int[] SETTINGS_FOR_RESTRICTED = {
@@ -1017,6 +1020,7 @@ public class Settings extends PreferenceActivity
         private final ProfileEnabler mProfileEnabler;
         private final LocationEnabler mLocationEnabler;
         private final VoiceWakeupEnabler mVoiceWakeupEnabler;
+        public static ThemeEnabler mThemeEnabler;
         private AuthenticatorHelper mAuthHelper;
         private DevicePolicyManager mDevicePolicyManager;
 
@@ -1032,7 +1036,8 @@ public class Settings extends PreferenceActivity
         private LayoutInflater mInflater;
 
         static int getHeaderType(Header header) {
-            if (header.fragment == null && header.intent == null) {
+            if (header.fragment == null && header.intent == null
+                    && header.id != R.id.theme_settings) {
                 return HEADER_TYPE_CATEGORY;
             } else if (header.id == R.id.wifi_settings
                     || header.id == R.id.bluetooth_settings
@@ -1040,6 +1045,8 @@ public class Settings extends PreferenceActivity
                     || header.id == R.id.profiles_settings
                     || header.id == R.id.voice_wakeup_settings
                     || header.id == R.id.location_settings) {
+                    || header.id == R.id.location_settings
+                    || header.id == R.id.theme_settings) {
                 return HEADER_TYPE_SWITCH;
             } else if (header.id == R.id.security_settings) {
                 return HEADER_TYPE_BUTTON;
@@ -1089,6 +1096,7 @@ public class Settings extends PreferenceActivity
             mProfileEnabler = new ProfileEnabler(context, new Switch(context));
             mLocationEnabler = new LocationEnabler(context, new Switch(context));
             mVoiceWakeupEnabler = new VoiceWakeupEnabler(context, new Switch(context));
+            mThemeEnabler = new ThemeEnabler(context, new Switch(context));
             mDevicePolicyManager = dpm;
         }
 
@@ -1168,6 +1176,8 @@ public class Settings extends PreferenceActivity
                         mLocationEnabler.setSwitch(holder.switch_);
                     } else if (header.id == R.id.voice_wakeup_settings) {
                         mVoiceWakeupEnabler.setSwitch(holder.switch_);
+                    } else if (header.id == R.id.theme_settings) {
+                        mThemeEnabler.setSwitch(holder.switch_);
                     }
                     updateCommonHeaderView(header, holder);
                     break;
@@ -1250,6 +1260,7 @@ public class Settings extends PreferenceActivity
             mProfileEnabler.resume();
             mLocationEnabler.resume();
             mVoiceWakeupEnabler.resume();
+            mThemeEnabler.resume();
         }
 
         public void pause() {
@@ -1259,6 +1270,7 @@ public class Settings extends PreferenceActivity
             mProfileEnabler.pause();
             mLocationEnabler.pause();
             mVoiceWakeupEnabler.pause();
+            mThemeEnabler.resume();
         }
     }
 
@@ -1334,10 +1346,24 @@ public class Settings extends PreferenceActivity
         invalidateHeaders();
     }
 
+<<<<<<< HEAD
     public void setNfcProfileCallback(NFCProfileTagCallback callback) {
         mNfcProfileCallback = callback;
     }
 
+||||||| merged common ancestors
+=======
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (newConfig.uiThemeMode != mCurrentState && HeaderAdapter.mThemeEnabler != null) {
+            mCurrentState = newConfig.uiThemeMode;
+            HeaderAdapter.mThemeEnabler.setSwitchState();
+        }
+    }
+
+>>>>>>> Settings: TRDS 3.0 and new theme engine preparation (4/4)
     public static void requestHomeNotice() {
         sShowNoHomeNotice = true;
     }
