@@ -65,7 +65,6 @@ import android.widget.PopupWindow;
 import com.android.display.IPPService;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 public class CustomScreenColor extends Activity implements SeekBar.OnSeekBarChangeListener,
@@ -81,6 +80,8 @@ public class CustomScreenColor extends Activity implements SeekBar.OnSeekBarChan
     private static final int SELECT_FILE_ORDER = 0;
     private static final int REQUEST_SELECT_FILE = 100;
     private static final String IMAGE_UNSPECIFIED = "image/*";
+    private static final String GALLERY_CLASSNAME = "com.android.gallery3d.app.Wallpaper";
+    private static final String GALLERY_PACKAGENAME = "com.android.gallery3d";
     private static final String PREVIEW_STRING_KEY = "screencolor_preview_key";
     private static final String PREVIEW_STRING_NAME = "screencolor_preview_name";
     private static final String COLOR_HUE = "hue";
@@ -93,6 +94,10 @@ public class CustomScreenColor extends Activity implements SeekBar.OnSeekBarChan
     private static final String KEY_SPOTLIGHT_X = "spotlightX";
     private static final String KEY_SPOTLIGHT_Y = "spotlightY";
     private static final String KEY_FROME_SCREENCOLOR = "fromScreenColor";
+    private static final int ASPECT_X = 480;
+    private static final int ASPECT_Y = 800;
+    private static final float SPOTLIGHT_X = 0;
+    private static final float SPOTLIGHT_Y = 0;
 
     private ImageView mImageView;
     private RelativeLayout mRLayout;
@@ -477,8 +482,17 @@ public class CustomScreenColor extends Activity implements SeekBar.OnSeekBarChan
     }
 
     private void selectPicFromGallery2() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_SET_WALLPAPER);
+        intent.setComponent(new ComponentName(GALLERY_PACKAGENAME, GALLERY_CLASSNAME));
+        Bundle bundle = new Bundle();
+        // define the width and heigh to crop the image.
+        bundle.putInt(KEY_ASPECT_X, ASPECT_X);
+        bundle.putInt(KEY_ASPECT_Y, ASPECT_Y);
+        bundle.putFloat(KEY_SPOTLIGHT_X, SPOTLIGHT_X);
+        bundle.putFloat(KEY_SPOTLIGHT_Y, SPOTLIGHT_Y);
+        // send true to set CropImage view's title is not set wallpaper.
+        bundle.putBoolean(KEY_FROME_SCREENCOLOR, true);
+        intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_SELECT_FILE);
     }
 
@@ -584,56 +598,14 @@ public class CustomScreenColor extends Activity implements SeekBar.OnSeekBarChan
     }
 
     private void setBackgroundByUri(Uri uri) {
-        InputStream is = null;
         try {
-            is = getContentResolver().openInputStream(uri);
-            BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(is, null, opts);
-            is.close();
-            is = getContentResolver().openInputStream(uri);
-            opts.inJustDecodeBounds = false;
-            opts.inSampleSize = calculateInSampleSize(opts,
-                    mRLayout.getWidth(), mRLayout.getHeight());
-            Bitmap bm = BitmapFactory.decodeStream(is, null, opts);
+            InputStream is = getContentResolver().openInputStream(uri);
+            Bitmap bm = BitmapFactory.decodeStream(is);
             BitmapDrawable bd = new BitmapDrawable(bm);
             mRLayout.setBackgroundDrawable(bd);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         canRestorePreview = true;
-    }
-
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
     }
 
     private void resotreBackgroundByDefault() {
