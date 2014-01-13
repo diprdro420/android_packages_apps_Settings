@@ -34,6 +34,11 @@
         android:key="battery_stats"
         android:title="@string/battery_stats_title" />
 
+    <PreferenceScreen
+        android:key="pref_battery_saver"
+        android:fragment="com.android.settings.shift.BatterySaverSettings"
+        android:title="@string/battery_saver_title" />
+
     <Preference
         style="?android:attr/preferenceInformationStyle"
         android:key="battery_status"
