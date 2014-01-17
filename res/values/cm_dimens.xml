@@ -38,7 +38,6 @@
     <!-- Height of the sliding KeyguardSecurityContainer (includes 2x keyguard_security_view_margin) -->
     <dimen name="pa_security_height">400dp</dimen>
 
-
     <!-- Navbar -->
     <dimen name="navigation_bar_48">48dp</dimen>
     <dimen name="navigation_bar_44">44dp</dimen>
@@ -48,4 +47,7 @@
     <dimen name="navigation_bar_30">30dp</dimen>
     <dimen name="navigation_bar_24">24dp</dimen>
     <dimen name="navigation_bar_0">0dp</dimen>
+
+    <!-- Minimal notification row height used to calculate max notification count -->
+    <dimen name="notification_row_min_height">70dp</dimen>
 </resources>
