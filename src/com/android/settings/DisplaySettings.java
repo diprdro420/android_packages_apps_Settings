@@ -43,6 +43,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.text.Spannable;
 import android.util.AttributeSet;
 import android.util.Log;
