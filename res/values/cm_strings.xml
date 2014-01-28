@@ -204,7 +204,7 @@
 
     <!-- Volume adjustment sound -->
     <string name="volume_adjust_sounds_enable_title">Volume adjustment sound</string>
-    <string name="volume_adjust_sounds_enable_summary">Play sound when adjusting volume with volume buttons</string>
+    <string name="volume_adjust_sounds_enable_summary">Play sound when changing ringer volume</string>
 
     <!-- String for IconPicker -->
     <string name="icon_picker_title">Choose icon source</string>
@@ -318,6 +318,10 @@
     <!-- Safe headset volume checkboxes -->
     <string name="safe_headset_volume_title">Safe headset volume</string>
     <string name="safe_headset_volume_restore_title">Reduce headset volume on connection</string>
+    
+    <!-- Safe headset volume warning -->
+    <string name="safe_headset_volume_warning_title">Volume warning</string>
+    <string name="safe_headset_volume_warning_summary">Show safe headset volume warning</string>
 
     <!-- Waiver -->
     <string name="cyanogenmod_waiver_title">Waiver</string>
