@@ -102,6 +102,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String RING_MODE_NORMAL = "normal";
     private static final String RING_MODE_VIBRATE = "vibrate";
     private static final String RING_MODE_MUTE = "mute";
+    private static final String KEY_SAFE_HEADSET_VOLUME_WARNING = "safe_headset_volume_warning";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -120,6 +121,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
     private ListPreference mVolumeOverlay;
     private ListPreference mRingMode;
+    private CheckBoxPreference mVolumeWarning;
+    private CheckBoxPreference mVibrateWhenRinging;
+    private CheckBoxPreference mDtmfTone;
     private CheckBoxPreference mSoundEffects;
     private Preference mMusicFx;
     private Preference mRingtonePreference;
@@ -197,9 +201,18 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             mRingMode.setOnPreferenceChangeListener(this);
         }
 
+        mVolumeWarning = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME_WARNING);
+
         if (getResources().getBoolean(com.android.internal.R.bool.config_useFixedVolume)) {
             // device with fixed volume policy, do not display volumes submenu
             getPreferenceScreen().removePreference(findPreference(KEY_RING_VOLUME));
+            getPreferenceScreen().removePreference(findPreference(KEY_SAFE_HEADSET_VOLUME_WARNING));
+        } else {
+            int statusVolumePanelStyle = Settings.System.getInt(resolver,
+                    Settings.System.MODE_VOLUME_OVERLAY, 1);
+            mVolumeWarning.setChecked(Settings.System.getInt(resolver,
+                    Settings.System.MANUAL_SAFE_MEDIA_VOLUME, 1) == 1);
+            mVolumeWarning.setOnPreferenceChangeListener(this);
         }
 
         mQuietHours = (PreferenceScreen) findPreference(KEY_QUIET_HOURS);
@@ -491,7 +504,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             final int index = mVolumeOverlay.findIndexOfValue((String) objValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.MODE_VOLUME_OVERLAY, value);
-            mVolumeOverlay.setSummary(mVolumeOverlay.getEntries()[index]);
+        } else if (preference == mVolumeWarning) {
+            int volumeWarning = (Boolean) objValue ? 1 : 0;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.MANUAL_SAFE_MEDIA_VOLUME, volumeWarning);
         }
 
         return true;
