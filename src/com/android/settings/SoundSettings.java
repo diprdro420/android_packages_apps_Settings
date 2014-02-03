@@ -134,7 +134,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mCameraSounds;
-    private SeekBarPreference mVolumePanelTimeout;
+    private SeekBarPreferenceChOS mVolumePanelTimeout;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -183,8 +183,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
-		mVib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
         addPreferencesFromResource(R.xml.sound_settings);
 
         if (TelephonyManager.PHONE_TYPE_CDMA != activePhoneType) {
@@ -200,7 +198,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mVolumeOverlay.setValue(Integer.toString(volumeOverlay));
         mVolumeOverlay.setSummary(mVolumeOverlay.getEntry());
 
-        mVolumePanelTimeout = (SeekBarPreference) findPreference(KEY_VOLUME_PANEL_TIMEOUT);
+        mVolumePanelTimeout = (SeekBarPreferenceChOS) findPreference(KEY_VOLUME_PANEL_TIMEOUT);
 
 		int statusVolumePanelTimeout = Settings.System.getInt(resolver,
 					 Settings.System.VOLUME_PANEL_TIMEOUT, 3000);
