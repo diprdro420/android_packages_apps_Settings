@@ -432,5 +432,9 @@
     <string name="progressbar_color_3_title">Color3</string>
     <string name="progressbar_color_4_title">Color4</string>
     <string name="sample_progressbar_text">ProgressBar : Preview</string>
+    
+    <!-- Lock before unlock -->
+    <string name="lock_before_unlock_title">Show slider before secure unlock</string>
+    <string name="lock_before_unlock_summary">Show slider lockscreen before secure unlock mechanism</string>
 
 </resources>

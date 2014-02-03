@@ -49,6 +49,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String KEY_LOCKSCREEN_TARGETS = "lockscreen_targets";
     private static final String PREF_LOCKSCREEN_TORCH = "lockscreen_torch";
     private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
+    private static final String LOCK_BEFORE_UNLOCK = "lock_before_unlock";
 
     private CheckBoxPreference mEnableKeyguardWidgets;
     private CheckBoxPreference mEnableCameraWidget;
@@ -58,6 +59,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private Preference mLockscreenTargets;
     private CheckBoxPreference mGlowpadTorch;
     private SeekBarPreference mBlurRadius;
+    private CheckBoxPreference mLockBeforeUnlock;
 
     private ChooseLockSettingsHelper mChooseLockSettingsHelper;
     private LockPatternUtils mLockUtils;
@@ -111,6 +113,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         if (mBatteryStatus != null) {
             mBatteryStatus.setOnPreferenceChangeListener(this);
         }
+		
+		// Lock before Unlock
+        mLockBeforeUnlock = (CheckBoxPreference) findPreference(LOCK_BEFORE_UNLOCK);
 
         // Remove lockscreen button actions if device doesn't have hardware keys
         if (!hasButtons()) {
@@ -221,6 +226,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         } else if (KEY_ENABLE_CAMERA.equals(key)) {
             mLockUtils.setCameraEnabled(mEnableCameraWidget.isChecked());
             return true;
+        } else if (KEY_ENABLE_APPLICATION_WIDGET.equals(key)) {
+            mLockUtils.setApplicationWidgetEnabled(mEnableApplicationWidget.isChecked());
+            return true;
+        } else if (preference == mLockBeforeUnlock) {
+            Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCK_BEFORE_UNLOCK,
+                    mLockBeforeUnlock.isChecked() ? 1 : 0);
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
