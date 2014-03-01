@@ -910,7 +910,6 @@
   <string name="block_notifications_title">알림 필터</string>
   <string name="block_notifications_summary">무시할 알림 및 필터 관리</string>
   <string name="no_filters_title">필터가 설정되어 있지 않습니다. 알림을 걸러내려면 길게 누른 뒤 \'이와 같은 메시지 무시\'를 선택하십시오.</string>
-<<<<<<< HEAD
 
   <!-- App sidebar -->
   <string name="app_sidebar_title">앱 사이드바</string>
