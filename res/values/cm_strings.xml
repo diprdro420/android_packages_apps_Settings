@@ -1302,4 +1302,14 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="theme_auto_mode_twilight">On daytime</string>
     <string name="theme_auto_switch_mode_error">Automatic light condition change mode is enabled. Manual switching is not possible.</string>
 
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Color picker</string>
+    <string name="press_color_to_apply">Tap on color to apply</string>
+    <string name="arrow_right" translatable="false">\u2192</string>
+    <string name="arrow_down" translatable="false">\u2193</string>
+    <string name="hex_hint" translatable="false">#ff000000</string>
+    <string name="ics_color" translatable="false">!!!</string>
+    <string name="set">Set</string>
+    <string name="hex">Hex:</string>
+    <string name="color_default">Default</string>
 </resources>
