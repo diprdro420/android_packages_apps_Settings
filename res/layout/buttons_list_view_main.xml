@@ -65,4 +65,3 @@
         settings:dragStartMode="onMove"
         settings:removeMode="flingRemove" />
 </LinearLayout>
-
