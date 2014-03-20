@@ -1550,5 +1550,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Sound settings screen, setting check box label -->
     <string name="camera_sounds_title">Camera shutter sound</string>
     <string name="camera_sounds_summary">WARNING: Disabling the camera shutter sound is illegal in some areas!</string>
+    
+    <!-- On-The-Go -->
+    <string name="power_menu_onthego_title">On-The-Go Mode</string>
+    <string name="title_tile_onthego">On-The-Go</string>
+
 
 </resources>
