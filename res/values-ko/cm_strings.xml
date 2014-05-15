@@ -953,4 +953,6 @@
   <!-- ListView animation -->
   <string name="listview_category">리스트뷰 애니메이션</string>
 
+  <!-- Toast Animation -->
+  <string name="toast_animation_title">토스트 애니메이션</string>
 </resources>
