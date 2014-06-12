@@ -1559,8 +1559,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="halo_hide_summary">Halo will appear for incoming tasks and scroll out of sight after a while</string>
     <string name="halo_state_title">Halo policy</string>
     <string name="halo_state_summary">Enables black/white listing notifications</string>
-    <string name="halo_state_black">Black list</string>
-    <string name="halo_state_white">White list</string>
+    <string name="halo_state_black">Blacklist from Halo</string>
+    <string name="halo_state_white">Whitelist from Halo</string>
     <string name="halo_pause_title">Pause active app</string>
     <string name="halo_pause_summary">When opening an app with Halo the underlying app will get paused</string>
     <string name="halo_notification_msgbox_title">Enable message pop-up</string>
