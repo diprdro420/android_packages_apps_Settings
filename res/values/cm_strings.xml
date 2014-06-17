@@ -1366,9 +1366,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="animation_reverse_exit_title">Reverse exit animation</string>
 
     <!-- App sidebar -->
-    <string name="app_sidebar_title">Appbar</string>
+    <string name="app_sidebar_title">App sidebar</string>
     <string name="app_sidebar_enable_title">Enable Appbar</string>
-    <string name="app_sidebar_summary">Customize your app sidebar</string>
     <string name="app_sidebar_enable_summaryOn">\@appbar is enabled</string>
     <string name="app_sidebar_enable_summaryOff">\@appbar is disabled</string>
     <string name="app_sidebar_setup_items_title">Setup Appbar content</string>
@@ -1563,7 +1562,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="title_tile_onthego">On-The-Go</string>
 
     <!-- Recent panel -->
-    <string name="recent_panel_category">Recent apps panel</string>
+    <string name="recent_panel_title">Recent apps panel</string>
     <string name="recent_panel_scale_title">Size</string>
     <string name="recent_panel_scale_summary">Recent apps panel size in percent.</string>
     <string name="recent_panel_100">100% (default)</string>
