@@ -115,12 +115,12 @@ import com.android.settings.profiles.AppGroupConfig;
 import com.android.settings.profiles.ProfileConfig;
 import com.android.settings.profiles.ProfileEnabler;
 import com.android.settings.profiles.ProfilesSettings;
+import com.android.settings.slim.themes.ThemeEnabler;
 import com.android.settings.quicksettings.QuickSettingsTiles;
 import com.android.settings.search.SettingsAutoCompleteTextView;
 import com.android.settings.search.SearchPopulator;
 import com.android.settings.search.SettingsSearchFilterAdapter;
 import com.android.settings.search.SettingsSearchFilterAdapter.SearchInfo;
-import com.android.settings.slim.themes.ThemeEnabler;
 import com.android.settings.tts.TextToSpeechSettings;
 import com.android.settings.users.UserSettings;
 import com.android.settings.voicewakeup.VoiceWakeupEnabler;
@@ -175,7 +175,7 @@ public class Settings extends PreferenceActivity
     private Header mCurrentHeader;
     private Header mParentHeader;
     private boolean mInLocalHeaderSwitch;
-
+    
     private int mCurrentState = 0;
 
     // Show only these settings for restricted users
@@ -421,7 +421,11 @@ public class Settings extends PreferenceActivity
         if (mSearchItem != null) {
             mSearchItem.collapseActionView();
         }
-    }
+        if (newConfig.uiThemeMode != mCurrentState && HeaderAdapter.mThemeEnabler != null) {
+		mCurrentState = newConfig.uiThemeMode;
+		HeaderAdapter.mThemeEnabler.setSwitchState();
+	}
+ }
 
     @Override
     public void onDestroy() {
@@ -1002,8 +1006,8 @@ public class Settings extends PreferenceActivity
         private final MobileDataEnabler mMobileDataEnabler;
         private final ProfileEnabler mProfileEnabler;
         private final LocationEnabler mLocationEnabler;
-        private final VoiceWakeupEnabler mVoiceWakeupEnabler;
         public static ThemeEnabler mThemeEnabler;
+        private final VoiceWakeupEnabler mVoiceWakeupEnabler;
         private AuthenticatorHelper mAuthHelper;
         private DevicePolicyManager mDevicePolicyManager;
 
@@ -1027,7 +1031,7 @@ public class Settings extends PreferenceActivity
                     || header.id == R.id.mobile_network_settings
                     || header.id == R.id.profiles_settings
                     || header.id == R.id.voice_wakeup_settings
-                    || header.id == R.id.location_settings) {
+                    || header.id == R.id.location_settings
                     || header.id == R.id.theme_settings) {
                 return HEADER_TYPE_SWITCH;
             } else if (header.id == R.id.security_settings) {
@@ -1077,8 +1081,8 @@ public class Settings extends PreferenceActivity
             mMobileDataEnabler = new MobileDataEnabler(context, new Switch(context));
             mProfileEnabler = new ProfileEnabler(context, new Switch(context));
             mLocationEnabler = new LocationEnabler(context, new Switch(context));
-            mVoiceWakeupEnabler = new VoiceWakeupEnabler(context, new Switch(context));
             mThemeEnabler = new ThemeEnabler(context, new Switch(context));
+            mVoiceWakeupEnabler = new VoiceWakeupEnabler(context, new Switch(context));
             mDevicePolicyManager = dpm;
         }
 
@@ -1156,10 +1160,10 @@ public class Settings extends PreferenceActivity
                         mProfileEnabler.setSwitch(holder.switch_);
                     } else if (header.id == R.id.location_settings) {
                         mLocationEnabler.setSwitch(holder.switch_);
+                    } else if (header.id == R.id.theme_settings) {
+						mThemeEnabler.setSwitch(holder.switch_);    
                     } else if (header.id == R.id.voice_wakeup_settings) {
                         mVoiceWakeupEnabler.setSwitch(holder.switch_);
-                    } else if (header.id == R.id.theme_settings) {
-                        mThemeEnabler.setSwitch(holder.switch_);
                     }
                     updateCommonHeaderView(header, holder);
                     break;
@@ -1241,8 +1245,8 @@ public class Settings extends PreferenceActivity
             mMobileDataEnabler.resume();
             mProfileEnabler.resume();
             mLocationEnabler.resume();
-            mVoiceWakeupEnabler.resume();
             mThemeEnabler.resume();
+            mVoiceWakeupEnabler.resume();
         }
 
         public void pause() {
@@ -1251,8 +1255,8 @@ public class Settings extends PreferenceActivity
             mMobileDataEnabler.pause();
             mProfileEnabler.pause();
             mLocationEnabler.pause();
-            mVoiceWakeupEnabler.pause();
             mThemeEnabler.resume();
+            mVoiceWakeupEnabler.pause();
         }
     }
 
@@ -1327,16 +1331,6 @@ public class Settings extends PreferenceActivity
         mAuthenticatorHelper.updateAuthDescriptions(this);
         mAuthenticatorHelper.onAccountsUpdated(this, accounts);
         invalidateHeaders();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if (newConfig.uiThemeMode != mCurrentState && HeaderAdapter.mThemeEnabler != null) {
-            mCurrentState = newConfig.uiThemeMode;
-            HeaderAdapter.mThemeEnabler.setSwitchState();
-        }
     }
 
     public static void requestHomeNotice() {
