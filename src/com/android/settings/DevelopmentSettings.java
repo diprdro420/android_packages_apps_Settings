@@ -607,9 +607,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     }
 
     private void writeAdvancedRebootOptions() {
-        Settings.Secure.putInt(getActivity().getContentResolver(),
-                Settings.Secure.ADVANCED_REBOOT,
-                mAdvancedReboot.isChecked() ? 1 : 0);
+         mAdvancedReboot.setChecked(Settings.Secure.getInt(getActivity().getContentResolver(),
+                Settings.Secure.ADVANCED_REBOOT, 1) != 0);
     }
 
     private void updateAdvancedRebootOptions() {
