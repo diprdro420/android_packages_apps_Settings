@@ -148,12 +148,6 @@ public class MultiSimSettings extends PreferenceActivity implements DialogInterf
         mPrioritySub = (ListPreference) findPreference(PRIORITY_SUB);
         mPrioritySub.setOnPreferenceChangeListener(this);
         mPhone = MSimPhoneFactory.getPhone(MSimConstants.SUB1);
-        mHasTuneAway = getResources().getBoolean(R.bool.config_HasTuneAway);
-
-        if (!mHasTuneAway) {
-            getPreferenceScreen().removePreference(mPrioritySub);
-            getPreferenceScreen().removePreference(mTuneAway);
-        }
 
         for (int subId = 0; subId < SubscriptionManager.NUM_SUBSCRIPTIONS; subId++) {
             mSubManager.registerForSubscriptionActivated(subId,
