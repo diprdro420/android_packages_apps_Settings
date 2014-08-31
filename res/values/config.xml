@@ -35,11 +35,21 @@
     <string name="min_cpu_freq_file" translatable="false">/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq</string>
 
     <!-- Home button Wake Support. Some devices do not support this.
-         Setting to false will disable Home button Wake support -->
+    Setting to false will disable Home button Wake support -->
     <bool name="config_show_homeWake">false</bool>
-
+    
     <!-- Volume rocker support. Some devices do not have a volume rocker. -->
     <bool name="has_volume_rocker">true</bool>
+    
+    <!-- Volume Rocker Wake Support. Some devices do not support (PMU) this.
+	Setting to false will disable Volume Rocker Wake support -->
+	<bool name="config_show_volumeRockerWake">false</bool>
+
+	<!-- Multi SIM Tune Away/Priority Subscription Support. Some device RILs do not support this.
+	Setting to false will disable Tune Away/Priority Subscription support -->
+	<bool name="config_HasTuneAway">false</bool>
+
+	<!-- **** CYANOGENMOD ADDITIONS END **** -->
 
     <!-- This is used to define screen color's Hue progress bar minimum value -->
     <integer name="minimum_hue_value" translatable="false">0</integer>
