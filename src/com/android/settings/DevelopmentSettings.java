@@ -608,17 +608,17 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private void writeAdvancedRebootOptions() {
          mAdvancedReboot.setChecked(Settings.Secure.getInt(getActivity().getContentResolver(),
-                Settings.Secure.ADVANCED_REBOOT, 1) != 0);
+                Settings.Secure.ADVANCED_REBOOT, 1) != 1);
     }
 
     private void updateAdvancedRebootOptions() {
         mAdvancedReboot.setChecked(Settings.Secure.getInt(getActivity().getContentResolver(),
-                Settings.Secure.ADVANCED_REBOOT, 0) != 0);
+                Settings.Secure.ADVANCED_REBOOT, 1) != 1);
     }
 
     private void resetDevelopmentShortcutOptions() {
         Settings.Secure.putInt(getActivity().getContentResolver(),
-                Settings.Secure.DEVELOPMENT_SHORTCUT, 0);
+                Settings.Secure.DEVELOPMENT_SHORTCUT, 1);
     }
 
     private void writeDevelopmentShortcutOptions() {
