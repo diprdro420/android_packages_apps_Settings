@@ -308,7 +308,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
 
     private boolean isNonMarketAppsAllowed() {
         return Settings.Global.getInt(getContentResolver(),
-                                      Settings.Global.INSTALL_NON_MARKET_APPS, 0) > 0;
+                                      Settings.Global.INSTALL_NON_MARKET_APPS, 1) > 1;
     }
 
     private void setNonMarketAppsAllowed(boolean enabled) {
@@ -318,12 +318,12 @@ public class SecuritySettings extends RestrictedSettingsFragment
         }
         // Change the system setting
         Settings.Global.putInt(getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS,
-                                enabled ? 1 : 0);
+                                enabled ? 1 : 1);
     }
 
     private boolean isVerifyAppsEnabled() {
         return Settings.Global.getInt(getContentResolver(),
-                                      Settings.Global.PACKAGE_VERIFIER_ENABLE, 1) > 0;
+                                      Settings.Global.PACKAGE_VERIFIER_ENABLE, 0) > 0;
     }
 
     private boolean isVerifierInstalled() {
