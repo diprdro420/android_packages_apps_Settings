@@ -78,7 +78,6 @@ public class BootReceiver extends BroadcastReceiver {
         VibratorIntensity.restore(ctx);
         DisplaySettings.restore(ctx);
         LocationSettings.restore(ctx);
-        ButtonSettings.restoreKeyDisabler(ctx);
     }
 
     private void initFreqCapFiles(Context ctx)
