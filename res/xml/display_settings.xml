@@ -55,19 +55,6 @@
             android:key="display_prefs"
             android:title="@string/display_settings_title">
 
-            <PreferenceScreen
-                    android:key="display_rotation"
-                    android:fragment="com.android.settings.cyanogenmod.DisplayRotation"
-                    android:title="@string/display_rotation_title" />
-
-            <ListPreference
-                    android:key="screen_timeout"
-                    android:title="@string/screen_timeout"
-                    android:summary="@string/screen_timeout_summary"
-                    android:persistent="false"
-                    android:entries="@array/screen_timeout_entries"
-                    android:entryValues="@array/screen_timeout_values" />
-
             <com.android.settings.FontDialogPreference
                     android:key="font_size"
                     android:title="@string/title_font_size"
