@@ -131,13 +131,6 @@
         android:fragment="com.android.settings.cyanogenmod.NotificationDrawer"
         android:title="@string/notification_drawer_title" />
         
-    <!-- Performance -->
-    <header
-        android:id="@+id/performance_settings"
-        android:fragment="com.android.settings.cyanogenmod.PerformanceSettings"
-        android:icon="@drawable/ic_settings_performance"
-        android:title="@string/performance_settings_title" />
-
     <!-- Recent App Panel -->
     <header
         settings:includeXmlForSearch="@xml/recent_settings"
@@ -335,6 +328,13 @@
         android:fragment="com.android.settings.DevelopmentSettings"
         android:icon="@drawable/ic_settings_development"
         android:title="@string/development_settings_title" />
+        
+    <!-- Performance -->
+    <header
+        android:id="@+id/performance_settings"
+        android:fragment="com.android.settings.cyanogenmod.PerformanceSettings"
+        android:icon="@drawable/ic_settings_performance"
+        android:title="@string/performance_settings_title" />
 
     <!-- Superuser -->
     <header
