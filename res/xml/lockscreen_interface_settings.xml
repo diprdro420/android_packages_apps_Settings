@@ -27,6 +27,16 @@
         android:key="lockscreen_see_through"
         android:title="@string/see_through_title"
         android:summary="@string/see_through_summary" />
+        
+    <com.android.settings.cyanogenmod.SeekBarPreference
+		android:key="lockscreen_blur_radius"
+		android:title="@string/lockscreen_blur_radius_title"
+		android:max="25"
+		settings:minappbar="0"
+		settings:unitsLeft=""
+		settings:unitsRight=""
+		android:defaultValue="14"
+		android:dependency="lockscreen_see_through" />        
 
     <PreferenceCategory
         android:title="@string/title_general"
@@ -98,7 +108,7 @@
             android:key="lockscreen_maximize_widgets"
             android:summary="@string/lockscreen_maximize_widgets_summary"
             android:title="@string/lockscreen_maximize_widgets_title" />
-
+            
     </PreferenceCategory>
 
 </PreferenceScreen>
