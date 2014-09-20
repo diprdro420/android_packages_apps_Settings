@@ -32,9 +32,4 @@
         android:key="pref_view_stats"
         android:title="@string/view_stats_title" />
 
-    <PreferenceScreen
-        android:key="recents_panel"
-        android:fragment="com.android.settings.crdroid.RecentsPanelSettings"
-        android:title="@string/recents_panel_settings_title" />
-
 </PreferenceScreen>
