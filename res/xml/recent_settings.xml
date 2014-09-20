@@ -54,5 +54,10 @@
         android:summary="@string/recent_panel_scale_summary"
         android:persistent="false"
         android:dependency="custom_recent_mode" />
+        
+    <PreferenceScreen
+        android:key="recents_panel"
+        android:fragment="com.android.settings.crdroid.RecentsPanelSettings"
+        android:title="@string/recents_panel_settings_title" />
 
 </PreferenceScreen>
