@@ -1753,7 +1753,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="ram_bar_reset_message">Reset RAM bar style to default?</string>
 
      <!-- General strings -->
-      <string name="recents_panel_settings_title" >Recents panel settings</string>
+      <string name="recents_panel_settings_title" >Stock Recents Settings</string>
       <string name="reset">Reset</string>
       
     <!-- Notification drawer background -->
