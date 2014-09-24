@@ -18,26 +18,6 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/themes_settings_title" >
 
-    <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
-        android:key="battery_around_lockscreen_ring"
-        android:title="@string/battery_around_lockscreen_ring"
-        android:defaultValue="false" />
-
-    <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
-        android:key="lockscreen_see_through"
-        android:title="@string/see_through_title"
-        android:summary="@string/see_through_summary" />
-        
-    <com.android.settings.cyanogenmod.SeekBarPreference
-		android:key="lockscreen_blur_radius"
-		android:title="@string/lockscreen_blur_radius_title"
-		android:max="25"
-		settings:minappbar="0"
-		settings:unitsLeft=""
-		settings:unitsRight=""
-		android:defaultValue="14"
-		android:dependency="lockscreen_see_through" />
-
     <PreferenceCategory
         android:title="@string/title_general"
         android:key="lockscreen_general_category" >
@@ -78,6 +58,31 @@
         <CheckBoxPreference
             android:key="lockscreen_modlock_enabled"
             android:title="@string/lockscreen_enable_modlock_title" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_torch"
+            android:title="@string/lockscreen_glowpad_torch_title"
+            android:summary="@string/lockscreen_glowpad_torch_summary" />
+
+        <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
+            android:key="battery_around_lockscreen_ring"
+            android:title="@string/battery_around_lockscreen_ring"
+            android:defaultValue="false" />
+
+        <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
+            android:key="lockscreen_see_through"
+            android:title="@string/see_through_title"
+            android:summary="@string/see_through_summary" />
+
+        <com.android.settings.cyanogenmod.SeekBarPreference
+            android:key="lockscreen_blur_radius"
+            android:title="@string/lockscreen_blur_radius_title"
+            android:max="25"
+            settings:minappbar="0"
+            settings:unitsLeft=""
+            settings:unitsRight=""
+            android:defaultValue="14"
+            android:dependency="lockscreen_see_through" />
 
     </PreferenceCategory>
 

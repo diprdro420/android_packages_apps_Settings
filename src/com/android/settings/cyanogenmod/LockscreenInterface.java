@@ -47,7 +47,6 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String KEY_ENABLE_MAXIMIZE_WIGETS = "lockscreen_maximize_widgets";
     private static final String KEY_LOCKSCREEN_MODLOCK_ENABLED = "lockscreen_modlock_enabled";
     private static final String KEY_LOCKSCREEN_TARGETS = "lockscreen_targets";
-
     private static final String PREF_LOCKSCREEN_TORCH = "lockscreen_torch";
     private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
 
@@ -92,12 +91,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                 getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.LOCKSCREEN_GLOWPAD_TORCH, 0) == 1);
         mGlowpadTorch.setOnPreferenceChangeListener(this);
-		
-		mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
-		mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
-				Settings.System.LOCKSCREEN_BLUR_RADIUS, 14));
-		mBlurRadius.setOnPreferenceChangeListener(this);
-		
+
+        mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
+        mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_BLUR_RADIUS, 14));
+        mBlurRadius.setOnPreferenceChangeListener(this);
+
         // Remove glowpad torch if device doesn't have torch
         if (!hasTorch()) {
             prefs.removePreference(mGlowpadTorch);
