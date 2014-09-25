@@ -137,7 +137,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements
             if (pref != null) {
                 mDynamicTiles.removePreference(pref);
             }
-        }*/
+        }
         if (!QSUtils.deviceSupportsImeSwitcher(getActivity())) {
             Preference pref = findPreference(Settings.System.QS_DYNAMIC_IME);
             if (pref != null) {
