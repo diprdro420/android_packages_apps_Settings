@@ -121,7 +121,6 @@ import com.android.settings.search.SettingsAutoCompleteTextView;
 import com.android.settings.search.SearchPopulator;
 import com.android.settings.search.SettingsSearchFilterAdapter;
 import com.android.settings.search.SettingsSearchFilterAdapter.SearchInfo;
-import com.android.settings.spirit.BatteryIconStyle;
 import com.android.settings.tts.TextToSpeechSettings;
 import com.android.settings.users.UserSettings;
 import com.android.settings.voicewakeup.VoiceWakeupEnabler;
@@ -495,8 +494,6 @@ public class Settings extends PreferenceActivity
         com.android.settings.quicksettings.QuickSettingsTiles.class.getName(),
         com.android.settings.cyanogenmod.QuietHours.class.getName(),
         ThemeSettings.class.getName()
-        com.android.settings.quicksettings.QuickSettingsTiles.class.getName(),
-	BatteryIconStyle.class.getName()
     };
 
     @Override
@@ -1414,5 +1411,4 @@ public class Settings extends PreferenceActivity
     public static class DisplayRotationSettingsActivity extends Settings { /* empty */ }
     public static class ShakeEventsSettingsActivity extends Settings { /* empty */ }
     public static class ASSRamBarActivity extends Settings { /* empty */ }
-    public static class BatteryIconStyleSettingsActivity extends Settings { /* empty */ }
 }
