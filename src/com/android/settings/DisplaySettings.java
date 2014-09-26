@@ -47,6 +47,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.text.Spannable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -56,6 +57,13 @@ import android.view.WindowManagerGlobal;
 import com.android.internal.view.RotationPolicy;
 import com.android.settings.DreamSettings;
 import com.android.settings.Utils;
+import com.android.settings.cyanogenmod.AppMultiSelectListPreference;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.lang.Thread;
+import java.util.ArrayList;
+import java.util.Arrays;
 import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.hardware.DisplayColor;
 import com.android.settings.hardware.DisplayGamma;
@@ -86,6 +94,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_ADAPTIVE_BACKLIGHT = "adaptive_backlight";
     private static final String KEY_SUNLIGHT_ENHANCEMENT = "sunlight_enhancement";
     private static final String KEY_COLOR_ENHANCEMENT = "color_enhancement";
+    private static final String PREF_ENABLE_APP_CIRCLE_BAR = "enable_app_circle_bar";
+	private static final String PREF_INCLUDE_APP_CIRCLE_BAR_KEY = "app_circle_bar_included_apps";
     private static final String KEY_ADVANCED_DISPLAY_SETTINGS = "advanced_display_settings";
     private static final String KEY_TAP_TO_WAKE = "double_tap_wake_gesture";
     private static final String KEY_PROXIMITY_WAKE = "proximity_on_wake";
@@ -109,7 +119,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_EXPANDED_DESKTOP_NO_NAVBAR = "expanded_desktop_no_navbar";
     private static final String CATEGORY_EXPANDED_DESKTOP = "expanded_desktop_category";
 
+    private AppMultiSelectListPreference mIncludedAppCircleBar;
     private ListPreference mExpandedDesktopPref;
+    private CheckBoxPreference mEnableAppCircleBar;
     private CheckBoxPreference mExpandedDesktopNoNavbarPref;
 
     private CheckBoxPreference mAccelerometer;
@@ -162,6 +174,17 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.display_settings);
 
         PreferenceCategory displayPrefs = (PreferenceCategory) findPreference(CATEGORY_DISPLAY);
+        
+        // App circle bar
+		mEnableAppCircleBar = (CheckBoxPreference) prefScreen.findPreference(PREF_ENABLE_APP_CIRCLE_BAR);
+		mEnableAppCircleBar.setChecked((Settings.System.getInt(getContentResolver(),
+		Settings.System.ENABLE_APP_CIRCLE_BAR, 0) == 1));
+
+		mIncludedAppCircleBar = (AppMultiSelectListPreference) prefScreen.findPreference(PREF_INCLUDE_APP_CIRCLE_BAR_KEY);
+		Set<String> includedApps = getIncludedApps();
+		if (includedApps != null) mIncludedAppCircleBar.setValues(includedApps);
+		mIncludedAppCircleBar.setOnPreferenceChangeListener(this);
+        
         PreferenceCategory expandedCategory =
                 (PreferenceCategory) findPreference(CATEGORY_EXPANDED_DESKTOP);
 
@@ -697,6 +720,22 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     }
 
     @Override
+    @Override
+	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+		ContentResolver resolver = getActivity().getContentResolver();
+		boolean value;
+		if (preference == mEnableAppCircleBar) {
+			boolean checked = ((CheckBoxPreference)preference).isChecked();
+			Settings.System.putInt(resolver,
+					Settings.System.ENABLE_APP_CIRCLE_BAR, checked ? 1:0);
+		} else {
+			return super.onPreferenceTreeClick(preferenceScreen, preference);
+		}
+
+		return true;
+	}
+
+	@Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
         if (KEY_EXPANDED_DESKTOP.equals(key)) {
@@ -706,6 +745,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (KEY_EXPANDED_DESKTOP_NO_NAVBAR.equals(key)) {
             boolean value = (Boolean) objValue;
             updateExpandedDesktop(value ? 2 : 0);
+        } else if (preference == mIncludedAppCircleBar) {
+			storeIncludedApps((Set<String>) objValue);
         }
 
         if (KEY_SCREEN_TIMEOUT.equals(key)) {
@@ -885,4 +926,24 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mExpandedDesktopPref.setSummary(res.getString(summary));
         }
     }
+	private Set<String> getIncludedApps() {
+		String included = Settings.System.getString(getActivity().getContentResolver(),
+				Settings.System.WHITELIST_APP_CIRCLE_BAR);
+		if (TextUtils.isEmpty(included)) {
+			return null;
+		}
+		return new HashSet<String>(Arrays.asList(included.split("\\|")));
+	}
+
+	private void storeIncludedApps(Set<String> values) {
+		StringBuilder builder = new StringBuilder();
+		String delimiter = "";
+		for (String value : values) {
+			builder.append(delimiter);
+			builder.append(value);
+			delimiter = "|";
+		}
+		Settings.System.putString(getActivity().getContentResolver(),
+				Settings.System.WHITELIST_APP_CIRCLE_BAR, builder.toString());
+	}
 }
