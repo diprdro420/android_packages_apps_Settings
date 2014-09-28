@@ -427,7 +427,11 @@ public class Settings extends PreferenceActivity
         if (mSearchItem != null) {
             mSearchItem.collapseActionView();
         }
-    }
+        if (newConfig.uiThemeMode != mCurrentState && HeaderAdapter.mThemeEnabler != null) {
+		mCurrentState = newConfig.uiThemeMode;
+		HeaderAdapter.mThemeEnabler.setSwitchState();
+	}
+ }
 
     @Override
     public void onDestroy() {
@@ -1345,13 +1349,10 @@ public class Settings extends PreferenceActivity
         invalidateHeaders();
     }
 
-<<<<<<< HEAD
     public void setNfcProfileCallback(NFCProfileTagCallback callback) {
         mNfcProfileCallback = callback;
     }
 
-||||||| merged common ancestors
-=======
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -1362,7 +1363,6 @@ public class Settings extends PreferenceActivity
         }
     }
 
->>>>>>> Settings: TRDS 3.0 and new theme engine preparation (4/4)
     public static void requestHomeNotice() {
         sShowNoHomeNotice = true;
     }
