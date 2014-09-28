@@ -408,6 +408,11 @@
     <string name="cm_location_mode_battery_saving">Battery saving</string>
     <string name="cm_location_mode_device_only">Device only</string>
     <string name="cm_location_mode_high_accuracy">High accuracy</string>
+    <string name="pref_music_mode_title">Music modes</string>
+	<string name="music_tile_mode_none">None</string>
+	<string name="music_tile_mode_background">Album artwork</string>
+	<string name="music_tile_mode_tracktitle">Track title</string>
+	<string name="music_tile_mode_all">Album artwork &amp; Track title</string>
 
     <!-- Reset tiles -->
     <string name="tiles_reset_title">Reset</string>
