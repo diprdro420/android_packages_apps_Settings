@@ -108,8 +108,8 @@
 
     <!-- Themes -->
     <header
-        settings:includeXmlForSearch="@xml/theme_settings_cyanogen"
-        android:id="@+id/theme_settings"
+        settings:includeXmlForSearch="@xml/theme_settings"
+        android:id="@+id/themes_cyanogen"
         android:title="@string/themes_settings_title"
         android:breadCrumbTitle="@string/themes_settings_title"
         android:fragment="com.android.settings.ThemeSettings"
