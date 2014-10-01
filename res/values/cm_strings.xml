@@ -1910,4 +1910,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcuts_color_summary">Colorize the shortcut icons</string>
     <string name="shortcuts_color_mode_title">Icon color mode</string>
     <string name="shortcuts_color_mode_summary">Change the shorcuts icon color mode</string>
+
+    <!-- Battery Bar -->
+    <string name="battery_bar_height">Battery bar height</string>
+    <string name="battery_bar_left_color">Battery bar left color</string>
+    <string name="battery_bar_right_color">Battery bar right color</string>
+    <string name="battery_bar_reset_message">Reset all entries to default?</string>
 </resources>
