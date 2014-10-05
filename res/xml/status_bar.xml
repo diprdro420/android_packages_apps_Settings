@@ -56,8 +56,7 @@
             android:title="@string/battery_bar_height"
             android:defaultValue="3"
             android:max="5"
-            settings:minappbar="1"
-            settings:interval="1" />
+            settings:minappbar="1" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="battery_bar_left_color"
