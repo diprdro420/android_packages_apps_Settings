@@ -44,12 +44,16 @@ public class Recent extends SettingsPreferenceFragment implements OnPreferenceCh
     private static final String RECENT_PANEL_LEFTY_MODE = "recent_panel_lefty_mode";
     private static final String RECENT_PANEL_SCALE = "recent_panel_scale";
     private static final String RECENT_PANEL_BG_COLOR = "recent_panel_bg_color";
+    private static final String RECENT_CARD_BG_COLOR = "recent_card_bg_color";
+	private static final String RECENT_CARD_TEXT_COLOR = "recent_card_text_color";
 
     private CheckBoxPreference mRecentsCustom;
     private ListPreference mRecentPanelExpandedMode;
     private CheckBoxPreference mRecentPanelLeftyMode;
     private ListPreference mRecentPanelScale;
     private ColorPickerPreference mRecentPanelBgColor;
+    private ColorPickerPreference mRecentCardBgColor;
+	private ColorPickerPreference mRecentCardTextColor;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DEFAULT_BACKGROUND_COLOR = 0x00ffffff;
@@ -95,6 +99,27 @@ public class Recent extends SettingsPreferenceFragment implements OnPreferenceCh
         String hexColor = String.format("#%08x", (0x00ffffff & intColor));
         mRecentPanelBgColor.setSummary(hexColor);
         mRecentPanelBgColor.setNewPreviewColor(intColor);
+        
+		// Recent card background color
+		mRecentCardBgColor =
+				(ColorPickerPreference) findPreference(RECENT_CARD_BG_COLOR);
+		mRecentCardBgColor.setOnPreferenceChangeListener(this);
+		final int intColorCard = Settings.System.getInt(getContentResolver(),
+				Settings.System.RECENT_CARD_BG_COLOR, 0x00ffffff);
+		String hexColorCard = String.format("#%08x", (0x00ffffff & intColorCard));
+		mRecentCardBgColor.setSummary(hexColorCard);
+		mRecentCardBgColor.setNewPreviewColor(intColorCard);
+
+		// Recent card text color
+		mRecentCardTextColor =
+				(ColorPickerPreference) findPreference(RECENT_CARD_TEXT_COLOR);
+		mRecentCardTextColor.setOnPreferenceChangeListener(this);
+		final int intColorText = Settings.System.getInt(getContentResolver(),
+				Settings.System.RECENT_CARD_TEXT_COLOR, 0x00ffffff);
+		String hexColorText = String.format("#%08x", (0x00ffffff & intColorText));
+		mRecentCardTextColor.setSummary(hexColorText);
+		mRecentCardTextColor.setNewPreviewColor(intColorText);
+
         setHasOptionsMenu(true);
     }
 
@@ -130,6 +155,24 @@ public class Recent extends SettingsPreferenceFragment implements OnPreferenceCh
                     Settings.System.RECENT_PANEL_BG_COLOR,
                     intHex);
             return true;
+        } else if (preference == mRecentCardBgColor) {
+			String hex = ColorPickerPreference.convertToARGB(
+					Integer.valueOf(String.valueOf(newValue)));
+			preference.setSummary(hex);
+			int intHex = ColorPickerPreference.convertToColorInt(hex);
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.RECENT_CARD_BG_COLOR,
+					intHex);
+			return true;
+		} else if (preference == mRecentCardTextColor) {
+			String hex = ColorPickerPreference.convertToARGB(
+					Integer.valueOf(String.valueOf(newValue)));
+			preference.setSummary(hex);
+			int intHex = ColorPickerPreference.convertToColorInt(hex);
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.RECENT_CARD_TEXT_COLOR,
+					intHex);
+			return true;
         }
 
         return false;
@@ -170,5 +213,11 @@ public class Recent extends SettingsPreferenceFragment implements OnPreferenceCh
         Settings.System.putInt(getContentResolver(),
                 Settings.System.RECENT_PANEL_BG_COLOR, DEFAULT_BACKGROUND_COLOR);
         mRecentPanelBgColor.setNewPreviewColor(DEFAULT_BACKGROUND_COLOR);
+        Settings.System.putInt(getContentResolver(),
+				Settings.System.RECENT_CARD_BG_COLOR, DEFAULT_BACKGROUND_COLOR);
+		mRecentCardBgColor.setNewPreviewColor(DEFAULT_BACKGROUND_COLOR);
+		Settings.System.putInt(getContentResolver(),
+				Settings.System.RECENT_CARD_TEXT_COLOR, DEFAULT_BACKGROUND_COLOR);
+		mRecentCardTextColor.setNewPreviewColor(DEFAULT_BACKGROUND_COLOR);
     }
 }
