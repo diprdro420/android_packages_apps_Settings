@@ -56,6 +56,16 @@
         android:dependency="custom_recent_mode" />
         
     <PreferenceScreen
+            android:key="omniswitch"
+            android:layout="@layout/preference_omniswitch"
+            android:title="@string/omniswitch_settings_title" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="org.omnirom.omniswitch"
+                android:targetClass="org.omnirom.omniswitch.SettingsActivity" />
+         </PreferenceScreen> 
+    
+    <PreferenceScreen
         android:key="recents_panel"
         android:fragment="com.android.settings.crdroid.RecentsPanelSettings"
         android:title="@string/recents_panel_settings_title" />
