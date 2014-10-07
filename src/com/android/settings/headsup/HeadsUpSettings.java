@@ -35,12 +35,16 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Switch;
 
+import com.android.settings.cyanogenmod.SeekBarPreference;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
@@ -52,11 +56,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HeadsUpSettings extends SettingsPreferenceFragment
-        implements AdapterView.OnItemLongClickListener, Preference.OnPreferenceClickListener {
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
+public class HeadsUpSettings extends SettingsPreferenceFragment implements
+        AdapterView.OnItemLongClickListener, Preference.OnPreferenceChangeListener,
+        Preference.OnPreferenceClickListener {
 
     private static final int DIALOG_DND_APPS = 0;
     private static final int DIALOG_BLACKLIST_APPS = 1;
+
+    private static final String KEY_HEADS_UP_TIMEOUT = "heads_up_timeout";
+    private static final String KEY_HEADS_UP_FS_TIMEOUT = "heads_up_fullscreen_timeout";
+    private static final String HEADS_UP_BG_COLOR = "heads_up_bg_color";
+    private static final String HEADS_UP_TEXT_COLOR = "heads_up_text_color";
 
     private PackageListAdapter mPackageAdapter;
     private PackageManager mPackageManager;
@@ -64,6 +76,10 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
     private PreferenceGroup mBlacklistPrefList;
     private Preference mAddDndPref;
     private Preference mAddBlacklistPref;
+    private SeekBarPreference mHeadsUpTimeout;
+    private SeekBarPreference mHeadsUpFSTimeout;
+    private ColorPickerPreference mHeadsUpBgColor;
+    private ColorPickerPreference mHeadsUpTextColor;
 
     private String mDndPackageList;
     private String mBlacklistPackageList;
@@ -75,6 +91,8 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
 
     private ViewGroup mPrefsContainer;
     private View mDisabledText;
+
+    private static final int MENU_RESET = Menu.FIRST;
 
     private ContentObserver mSettingsObserver = new ContentObserver(new Handler()) {
         @Override
@@ -105,6 +123,36 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
 
         mAddDndPref.setOnPreferenceClickListener(this);
         mAddBlacklistPref.setOnPreferenceClickListener(this);
+
+        mHeadsUpTimeout = (SeekBarPreference) findPreference(KEY_HEADS_UP_TIMEOUT);
+        mHeadsUpTimeout.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_TIMEOUT, 3700));
+        mHeadsUpTimeout.setOnPreferenceChangeListener(this);
+
+        mHeadsUpFSTimeout = (SeekBarPreference) findPreference(KEY_HEADS_UP_FS_TIMEOUT);
+        mHeadsUpFSTimeout.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_FS_TIMEOUT, 700));
+        mHeadsUpFSTimeout.setOnPreferenceChangeListener(this);
+
+        // Heads Up background color
+        mHeadsUpBgColor = (ColorPickerPreference) findPreference(HEADS_UP_BG_COLOR);
+        final int intColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_BG_COLOR, 0x00ffffff);
+        String hexColor = String.format("#%08x", (0x00ffffff & intColor));
+        mHeadsUpBgColor.setSummary(hexColor);
+        mHeadsUpBgColor.setNewPreviewColor(intColor);
+        mHeadsUpBgColor.setOnPreferenceChangeListener(this);
+
+        // Heads Up text color
+        mHeadsUpTextColor = (ColorPickerPreference) findPreference(HEADS_UP_TEXT_COLOR);
+        final int intTextColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_TEXT_COLOR, 0x00000000);
+        String hexTextColor = String.format("#%08x", (0x00000000 & intTextColor));
+        mHeadsUpTextColor.setSummary(hexTextColor);
+        mHeadsUpTextColor.setNewPreviewColor(intTextColor);
+        mHeadsUpTextColor.setOnPreferenceChangeListener(this);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -226,6 +274,51 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
         return dialog;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset)
+                .setIcon(R.drawable.ic_settings_backup)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.shortcut_action_reset);
+        alertDialog.setMessage(R.string.heads_up_reset_message);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                resetValues();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
+    }
+
+    private void resetValues() {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.HEADS_UP_TIMEOUT, 3700);
+        mHeadsUpTimeout.setValue(3700);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.HEADS_UP_FS_TIMEOUT, 700);
+        mHeadsUpFSTimeout.setValue(700);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.HEADS_UP_BG_COLOR, 0x00ffffff);
+        mHeadsUpBgColor.setNewPreviewColor(0x00ffffff);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.HEADS_UP_TEXT_COLOR, 0);
+        mHeadsUpTextColor.setNewPreviewColor(0x00000000);
+    }
 
     /**
      * Application class
@@ -296,6 +389,35 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
         // Add 'add' options
         mDndPrefList.addPreference(mAddDndPref);
         mBlacklistPrefList.addPreference(mAddBlacklistPref);
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        if (preference == mHeadsUpTimeout) {
+            int length = ((Integer) objValue).intValue();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_TIMEOUT, length);
+        } else if (preference == mHeadsUpFSTimeout) {
+            int length = ((Integer) objValue).intValue();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_FS_TIMEOUT, length);
+        } else if (preference == mHeadsUpBgColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(objValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_BG_COLOR,
+                    intHex);
+        } else if (preference == mHeadsUpTextColor) {
+            String hexText = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(objValue)));
+            preference.setSummary(hexText);
+            int intHexText = ColorPickerPreference.convertToColorInt(hexText);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_TEXT_COLOR,
+                    intHexText);
+        }
+        return true;
     }
 
     @Override
