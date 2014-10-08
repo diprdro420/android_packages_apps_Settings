@@ -196,7 +196,7 @@
     
     <!-- Chamber of Secrets -->
     <string name="chamber_title">CyanideMod Dungeon</string>
-    <string name="chamber_toast">The CyanideMod Chamber has opened</string>
+    <string name="chamber_toast">The CyanideMod Dungeon has been opened</string>
     
     <!-- General strings -->
     <string name="ok">OK</string>
