@@ -20,7 +20,6 @@
     <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
             android:key="heads_up_floating_window"
             android:title="@string/heads_up_floating_window"
-            android:summary="@string/heads_up_floating_window_summary"
             android:defaultValue="true" />
 
     <com.android.settings.cyanogenmod.SeekBarPreference
