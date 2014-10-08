@@ -49,8 +49,8 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String KEY_ENABLE_MAXIMIZE_WIGETS = "lockscreen_maximize_widgets";
     private static final String KEY_LOCKSCREEN_MODLOCK_ENABLED = "lockscreen_modlock_enabled";
     private static final String KEY_LOCKSCREEN_TARGETS = "lockscreen_targets";
-
     private static final String PREF_LOCKSCREEN_TORCH = "lockscreen_torch";
+    private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
 
     private CheckBoxPreference mEnableKeyguardWidgets;
     private CheckBoxPreference mEnableCameraWidget;
@@ -60,6 +60,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private ListPreference mBatteryStatus;
     private Preference mLockscreenTargets;
     private CheckBoxPreference mGlowpadTorch;
+    private SeekBarPreference mBlurRadius;
 
     private ChooseLockSettingsHelper mChooseLockSettingsHelper;
     private LockPatternUtils mLockUtils;
@@ -94,6 +95,11 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                 getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.LOCKSCREEN_GLOWPAD_TORCH, 0) == 1);
         mGlowpadTorch.setOnPreferenceChangeListener(this);
+
+        mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
+        mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_BLUR_RADIUS, 14));
+        mBlurRadius.setOnPreferenceChangeListener(this);
 
         // Remove glowpad torch if device doesn't have torch
         if (!hasTorch()) {
@@ -258,6 +264,10 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         } else if (preference == mGlowpadTorch) {
             Settings.System.putInt(cr, Settings.System.LOCKSCREEN_GLOWPAD_TORCH, (Boolean) objValue ? 1 : 0);
             return true;
+        } else if (preference == mBlurRadius) {
+			int radius = ((Integer) objValue).intValue();
+			Settings.System.putInt(cr, Settings.System.LOCKSCREEN_BLUR_RADIUS, radius);
+			return true;    
         }
 
         return false;
