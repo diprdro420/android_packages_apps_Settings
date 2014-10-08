@@ -189,7 +189,6 @@
     <string name="heads_up_timeout">Heads up timeout</string>
     <string name="heads_up_fullscreen_timeout">Heads up timeout on fullscreen</string>
     <string name="heads_up_floating_window">Launch in floating window</string>
-    <string name="heads_up_floating_window_summary">Long click to launch in fullscreen</string>
     <string name="heads_up_bg_color_title">Background color</string>
     <string name="heads_up_text_color_title">Text color</string>
     <string name="heads_up_reset_message">Reset all entries to default?</string>
