@@ -31,8 +31,8 @@
     <string name="shortcut_image_not_valid">The chosen app did not return a valid icon or does not support image cropping. Use another app</string>
     <string name="notif_alpha_title">Notification transparency</string>
     
-    <!-- App circle bar -->
-	<string name="category_app_circle_bar_title">App launcher</string>
+    <!-- Circle App Launcher -->
+	<string name="category_app_circle_bar_title">Circle App launcher</string>
 	<string name="app_circle_bar_title">App circle bar</string>
 	<string name="app_circle_bar_summary">Show circle app launcher after touching right side of screen</string>
 	<string name="app_circle_bar_included_apps_title">Included apps</string>
