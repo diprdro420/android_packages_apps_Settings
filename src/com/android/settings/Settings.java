@@ -1350,16 +1350,6 @@ public class Settings extends PreferenceActivity
         mNfcProfileCallback = callback;
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if (newConfig.uiThemeMode != mCurrentState && HeaderAdapter.mThemeEnabler != null) {
-            mCurrentState = newConfig.uiThemeMode;
-            HeaderAdapter.mThemeEnabler.setSwitchState();
-        }
-    }
-
     public static void requestHomeNotice() {
         sShowNoHomeNotice = true;
     }
