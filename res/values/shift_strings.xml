@@ -413,7 +413,10 @@
     <string name="notification_custom_carrier_label_explain">Please enter a new label. Enter an empty label to revert to stock label.</string>
     <string name="notification_custom_carrier_label_notset">Custom label currently not set</string>
     
+    <!-- Volume steps and panel timeout -->
     <string name="volume_steps_title">Volume steps</string>
 	<string name="volume_steps_summary">Fine grained control of volume for specified sound streams</string>
+	<string name="volume_panel_timeout_title">Timeout</string>
+	<string name="volume_panel_timeout_summary">Time until the panel will be hidden</string>
 
 </resources>
