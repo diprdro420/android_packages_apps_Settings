@@ -59,6 +59,8 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
+import com.android.settings.shift.SeekBarPreferenceChOS;
+
 public class SoundSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "SoundSettings";
@@ -99,6 +101,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_POWER_NOTIFICATIONS_RINGTONE = "power_notifications_ringtone";
     private static final String KEY_CAMERA_SOUNDS = "camera_sounds";
     private static final String PROP_CAMERA_SOUND = "persist.sys.camera-sound";
+    private static final String KEY_VOLUME_PANEL_TIMEOUT = "volume_panel_timeout";
 
     private static final String RING_MODE_NORMAL = "normal";
     private static final String RING_MODE_VIBRATE = "vibrate";
@@ -131,6 +134,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mCameraSounds;
+    private SeekBarPreference mVolumePanelTimeout;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -196,6 +200,13 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mVolumeOverlay.setValue(Integer.toString(volumeOverlay));
         mVolumeOverlay.setSummary(mVolumeOverlay.getEntry());
 
+        mVolumePanelTimeout = (SeekBarPreference) findPreference(KEY_VOLUME_PANEL_TIMEOUT);
+
+		int statusVolumePanelTimeout = Settings.System.getInt(resolver,
+					 Settings.System.VOLUME_PANEL_TIMEOUT, 3000);
+			mVolumePanelTimeout.setValue(statusVolumePanelTimeout / 1000);
+			mVolumePanelTimeout.setOnPreferenceChangeListener(this);
+        
         mRingMode = (ListPreference) findPreference(KEY_RING_MODE);
         if (!getResources().getBoolean(R.bool.has_silent_mode)) {
             getPreferenceScreen().removePreference(mRingMode);
@@ -210,6 +221,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             // device with fixed volume policy, do not display volumes submenu
             getPreferenceScreen().removePreference(findPreference(KEY_RING_VOLUME));
             getPreferenceScreen().removePreference(findPreference(KEY_SAFE_HEADSET_VOLUME_WARNING));
+            getPreferenceScreen().removePreference(findPreference(KEY_VOLUME_PANEL_TIMEOUT));
         } else {
             int statusVolumePanelStyle = Settings.System.getInt(resolver,
                     Settings.System.MODE_VOLUME_OVERLAY, 1);
@@ -514,6 +526,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             final int index = mVolumeOverlay.findIndexOfValue((String) objValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.MODE_VOLUME_OVERLAY, value);
+        } else if (preference == mVolumePanelTimeout) {
+			int volumePanelTimeout = (Integer) objValue;
+			Settings.System.putInt(getContentResolver(),
+					Settings.System.VOLUME_PANEL_TIMEOUT, volumePanelTimeout * 1000);
         } else if (preference == mVolumeWarning) {
             int volumeWarning = (Boolean) objValue ? 1 : 0;
             Settings.System.putInt(getContentResolver(),
