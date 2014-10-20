@@ -407,10 +407,6 @@
     <string name="noti_reminder_interval_3dot5s">3.5 second</string>
     <string name="noti_reminder_interval_4s">4 seconds</string>
     
-    <!-- Notification Drawer - Swipe to Switch full screen detection-->
-    <string name="title_full_screen_swipe">Swipe-to-Switch detection</string>
-    <string name="summary_full_screen_swipe">Use full screen detection for swipe to switch, not just the bottom bar</string>
-    
     <!-- Custom Carrier Label -->
     <string name="notification_carrier_label_title">Carrier label</string>
     <string name="notification_custom_carrier_label_title">Custom carrier label</string>
