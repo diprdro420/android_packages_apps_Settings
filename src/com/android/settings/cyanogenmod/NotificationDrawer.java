@@ -44,9 +44,7 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
     private static final String PREF_NOTI_REMINDER_ENABLED = "noti_reminder_enabled";
     private static final String PREF_NOTI_REMINDER_RINGTONE = "noti_reminder_ringtone";
     private static final String PREF_NOTI_REMINDER_INTERVAL = "noti_reminder_interval";
-    private static final String SWIPE_TO_SWITCH_SCREEN_DETECTION = "full_swipe_to_switch_detection";
 
-    private CheckBoxPreference mFullScreenDetection;
     private ListPreference mCollapseOnDismiss;
 
     private Preference mHeadsUp;
@@ -84,10 +82,6 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
                 getContentResolver(), Settings.System.HEADS_UP_NOTIFICATION, 0) == 1;
         mHeadsUp.setSummary(headsUpEnabled
                 ? R.string.summary_heads_up_enabled : R.string.summary_heads_up_disabled);
-        mFullScreenDetection = (CheckBoxPreference) findPreference(SWIPE_TO_SWITCH_SCREEN_DETECTION);
-        mFullScreenDetection.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.SWIPE_TO_SWITCH_SCREEN_DETECTION, 0) == 1);
-        mFullScreenDetection.setOnPreferenceChangeListener(this);
 
         // Notification Remider
         mReminder = (CheckBoxPreference) findPreference(PREF_NOTI_REMINDER_ENABLED);
@@ -160,11 +154,6 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
                     Settings.System.REMINDER_ALERT_INTERVAL,
                     interval, UserHandle.USER_CURRENT);
             updateReminderIntervalSummary(interval);
-        } else if (preference == mFullScreenDetection) {
-            boolean value = (Boolean) objValue;
-            Settings.System.putInt(getContentResolver(),
-                Settings.System.SWIPE_TO_SWITCH_SCREEN_DETECTION, value ? 1 : 0);
-            return true;
         }
 
         return false;
