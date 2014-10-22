@@ -34,6 +34,11 @@
         android:title="@string/button_settings" />
 	
 	<PreferenceScreen
+        android:key="dynamic_system_bar"
+        android:title="@string/dynamic_system_bars_title"
+        android:fragment="com.android.settings.cyanogenmod.DSBSettings" />
+	
+	<PreferenceScreen
         android:key="gesture_anywhere"
         android:fragment="com.android.settings.chameleonos.labs.gestureanywhere.GestureAnywhereSettings"
         android:title="@string/gesture_anywhere_title" />
