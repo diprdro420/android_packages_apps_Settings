@@ -32,7 +32,6 @@
     <string name="notif_alpha_title">Notification transparency</string>
     
     <!-- Circle App Launcher -->
-	<string name="category_app_circle_bar_title">Circle App launcher</string>
 	<string name="app_circle_bar_title">App circle bar</string>
 	<string name="app_circle_bar_summary">Show circle app launcher after touching right side of screen</string>
 	<string name="app_circle_bar_included_apps_title">Included apps</string>
