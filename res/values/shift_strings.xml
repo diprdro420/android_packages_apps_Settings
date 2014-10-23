@@ -435,5 +435,9 @@
     <!-- Lock before unlock -->
     <string name="lock_before_unlock_title">Show slider before secure unlock</string>
     <string name="lock_before_unlock_summary">Show slider lockscreen before secure unlock mechanism</string>
+    
+    <!-- Force expand notifications -->
+    <string name="notification_force_expand_title">Force expanded notification</string>
+    <string name="notification_force_expand_summary">Force expanded notifications if supported</string>
 
 </resources>

@@ -39,12 +39,14 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "NotificationDrawer";
 
+    private static final String PREF_FORCE_EXPANDED_NOTIFICATIONS = "force_expanded_notifications";
     private static final String UI_COLLAPSE_BEHAVIOUR = "notification_drawer_collapse_on_dismiss";
     private static final String PREF_NOTI_REMINDER_SOUND = "noti_reminder_sound";
     private static final String PREF_NOTI_REMINDER_ENABLED = "noti_reminder_enabled";
     private static final String PREF_NOTI_REMINDER_RINGTONE = "noti_reminder_ringtone";
     private static final String PREF_NOTI_REMINDER_INTERVAL = "noti_reminder_interval";
 
+    CheckBoxPreference mExpandNotif;
     private ListPreference mCollapseOnDismiss;
 
     private Preference mHeadsUp;
@@ -63,6 +65,12 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
 
         mHeadsUp = findPreference(Settings.System.HEADS_UP_NOTIFICATION);
 
+        //Force expanded notifications
+		mExpandNotif = (CheckBoxPreference) findPreference(PREF_FORCE_EXPANDED_NOTIFICATIONS);
+		mExpandNotif.setChecked(Settings.System.getIntForUser(getContentResolver(),
+				Settings.System.FORCE_EXPANDED_NOTIFICATIONS, 0, UserHandle.USER_CURRENT) == 1);
+		mExpandNotif.setOnPreferenceChangeListener(this);
+        
         // Notification drawer
         int collapseBehaviour = Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_COLLAPSE_ON_DISMISS,
@@ -121,7 +129,12 @@ public class NotificationDrawer extends SettingsPreferenceFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mCollapseOnDismiss) {
+        if (preference == mExpandNotif) {
+			Settings.System.putIntForUser(getContentResolver(),
+					Settings.System.FORCE_EXPANDED_NOTIFICATIONS,
+					(Boolean) objValue ? 1 : 0, UserHandle.USER_CURRENT);
+			return true;
+        } else if (preference == mCollapseOnDismiss) {
             int value = Integer.valueOf((String) objValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_COLLAPSE_ON_DISMISS, value);

@@ -19,6 +19,12 @@
     android:title="@string/notification_drawer_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+     <CheckBoxPreference
+        android:key="force_expanded_notifications"
+        android:title="@string/notification_force_expand_title"
+        android:summary="@string/notification_force_expand_summary"
+        android:defaultValue="false" />
+     
      <Preference
          android:fragment="com.android.settings.shift.NotificationDrawerStyle"
          android:key="notification_style"
