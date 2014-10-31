@@ -1992,8 +1992,6 @@
         <activity android:name=".cyanogenmod.Halo" />
 
         <activity android:name=".shift.NotificationDrawerStyle" />
-        
-        <activity android:name=".shift.StatusBarColor" />
 
         <!-- RAM bar -->
         <activity android:name="Settings$ASSRamBarActivity"

@@ -23,11 +23,6 @@
         android:key="category_status_bar_clock"
         android:title="@string/status_bar_clock_category">
 
-        <PreferenceScreen
-			android:key="statusbar_color_pref"
-			android:fragment="com.android.settings.beanstalk.StatusBarColor"
-			android:title="@string/custom_status_bar_header_title" />
-        
         <ListPreference
             android:key="status_bar_clock"
             android:dialogTitle="@string/status_bar_clock_title"
