@@ -126,20 +126,6 @@ public class PerformanceSettings extends SettingsPreferenceFragment implements
         } else {
             category.removePreference(findPreference(FORCE_HIGHEND_GFX_PREF));
         }
-
-        /* Display the warning dialog */
-        alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setTitle(R.string.performance_settings_warning_title);
-        alertDialog.setMessage(getResources().getString(R.string.performance_settings_warning));
-        alertDialog.setCancelable(false);
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                getResources().getString(com.android.internal.R.string.ok),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-        alertDialog.show();
     }
 
     @Override
