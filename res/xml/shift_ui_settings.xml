@@ -106,11 +106,4 @@
         android:title="@string/title_animation_controls"
         android:fragment="com.android.settings.cyanogenmod.AnimationSettings" />
 
-	<PreferenceScreen
-		settings:includeXmlForSearch="@xml/xposed_mods"
-		android:key="xposed_mods"
-		android:fragment="com.android.settings.shift.XposedMods"
-		android:title="@string/xposed_mods_title"
-		android:summary="@string/xposed_mods_summary" />
-
 </PreferenceScreen>
