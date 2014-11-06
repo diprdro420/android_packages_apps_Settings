@@ -439,5 +439,9 @@
     <!-- Force expand notifications -->
     <string name="notification_force_expand_title">Force expanded notification</string>
     <string name="notification_force_expand_summary">Force expanded notifications if supported</string>
+    
+    <!-- Ticker -->
+    <string name="status_bar_ticker_title">Notification Ticker</string>
+	<string name="status_bar_ticker_summary">Notification text animation in the statusbar</string>
 
 </resources>

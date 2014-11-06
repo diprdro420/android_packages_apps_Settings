@@ -60,12 +60,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String BATTERY_BAR_HEIGHT = "battery_bar_height";
     private static final String BATTERY_BAR_LEFT_COLOR = "battery_bar_left_color";
     private static final String BATTERY_BAR_RIGHT_COLOR = "battery_bar_right_color";
+    private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker";
 
     private static final String STATUS_BAR_GENERAL = "status_bar_general";
 
     private static final int MENU_RESET = Menu.FIRST;
 
     private ListPreference mStatusBarClockStyle;
+    private CheckBoxPreference mTicker;
     private ListPreference mStatusBarAmPm;
 
     private static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
@@ -186,6 +188,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mBatteryBarRightColor.setSummary(hexColor);
         mBatteryBarRightColor.setNewPreviewColor(rightColor);
         mBatteryBarRightColor.setOnPreferenceChangeListener(this);
+        
+        mTicker = (CheckBoxPreference) prefSet.findPreference(KEY_STATUS_BAR_TICKER);
+		mTicker.setChecked(Settings.System.getInt(
+				getContentResolver(), Settings.System.TICKER_ENABLED, 1) == 1);
+		mTicker.setOnPreferenceChangeListener(this);
 
         enableStatusBarBatteryDependents(mStatusBarBattery.getValue());
 
@@ -274,6 +281,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(resolver, Settings.System.BATTERY_BAR_RIGHT_COLOR, intHex);
             return true;
+            } else if (preference == mTicker) {
+				Settings.System.putInt(getContentResolver(), Settings.System.TICKER_ENABLED,
+						(Boolean) newValue ? 1 : 0);
+				return true;
         }
         return false;
     }
